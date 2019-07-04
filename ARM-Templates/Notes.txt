@@ -1,0 +1,6 @@
+https://docs.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-2.4.0
+
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/powershell-samples?toc=%2fpowershell%2fmodule%2ftoc.json
+
+
+set-executionpolicy remotesigned
