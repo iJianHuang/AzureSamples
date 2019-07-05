@@ -16,11 +16,9 @@ set-executionpolicy remotesigned
 
 
 
-
-
-
-
-
 Get-AzNetworkSecurityGroup -Name "configVMIIS-nsg" -ResourceGroupName "configVMIIS-rg" `
   | Add-AzNetworkSecurityRuleConfig -Name "configVMIIS-nsg-http" -Description "Allow HTTP"  -Access Allow -Protocol Tcp -Direction Inbound -Priority 1001 -SourceAddressPrefix  Internet -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 80 `
   | Set-AzNetworkSecurityGroup
+
+
+"101-vm-bxktcak4rfsfa is not a valid storage account name. Storage account name must be between 3 and 24 characters in length and use numbers and lower-case letters only

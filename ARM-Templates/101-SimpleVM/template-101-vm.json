@@ -45,7 +45,7 @@
         }
     },
     "variables": {
-        "storageAccountName": "[concat(parameters('environmentName'), 'sa')]",
+        "storageAccountName": "[concat(parameters('environmentName'), 'zzzsa')]",
         "nicName":  "[concat(parameters('environmentName'), '-nic')]",
         "addressPrefix": "10.0.0.0/16",
         "subnetName": "[concat(parameters('environmentName'), '-subnet')]",
@@ -53,7 +53,10 @@
         "publicIPAddressName": "[concat(parameters('environmentName'), '-pip')]",
         "vmName": "[concat(parameters('environmentName'), '-vm')]",
         "virtualNetworkName": "[concat(parameters('environmentName'), '-vnet')]",
-        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
+        "networkSecurityGroupName": "[concat(parameters('environmentName'), '-nsg')]",
+        "networkSecurityGroupRules": "[concat(parameters('environmentName'), '-nsgr')]",
+        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
     },
     "resources": [
         {
@@ -104,7 +107,8 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+                "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -120,7 +124,59 @@
                             }
                         }
                     }
-                ]
+                ],
+                "networkSecurityGroup": {
+                    "id": "[variables('nsgId')]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[variables('networkSecurityGroupName')]",
+            "apiVersion": "2018-08-01",
+            "location": "[parameters('location')]",            
+            "properties": {
+                "securityRules": [
+                        {
+                            "name": "RDP",
+                            "properties": {
+                                "priority": 300,
+                                "protocol": "TCP",
+                                "access": "Allow",
+                                "direction": "Inbound",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "destinationAddressPrefix": "*",
+                                "destinationPortRange": "3389"
+                            }
+                        },
+                        {
+                            "name": "HTTP",
+                            "properties": {
+                                "priority": 320,
+                                "protocol": "TCP",
+                                "access": "Allow",
+                                "direction": "Inbound",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "destinationAddressPrefix": "*",
+                                "destinationPortRange": "80"
+                            }
+                        },
+                        {
+                            "name": "HTTPS",
+                            "properties": {
+                                "priority": 340,
+                                "protocol": "TCP",
+                                "access": "Allow",
+                                "direction": "Inbound",
+                                "sourceAddressPrefix": "*",
+                                "sourcePortRange": "*",
+                                "destinationAddressPrefix": "*",
+                                "destinationPortRange": "443"
+                            }
+                        }
+                    ]
             }
         },
         {
