@@ -1,16 +1,15 @@
 $ErrorActionPreference = "Stop"
 
 # Variables for common values
-$myTag = "fullyConfiguredVMDemo"
+$myTag = "fullyConfig"
 $resourceGroup = "$myTag-rg"
 $location = "eastus"
 $vmName = "$myTag-vm"
 
-#Connect-AzAccount;
-
+Connect-AzAccount;
 
 # Create user object
-#$cred = Get-Credential -Message "Enter a username and password for the virtual machine."
+$cred = Get-Credential -Message "Enter a username and password for the virtual machine."
 
 # Create a resource group
 New-AzResourceGroup -Name $resourceGroup -Location $location
@@ -22,9 +21,9 @@ $subnetConfig = New-AzVirtualNetworkSubnetConfig -Name "$myTag-subnet" -AddressP
 $vnet = New-AzVirtualNetwork -ResourceGroupName $resourceGroup -Location $location `
   -Name "$myTag-vnet" -AddressPrefix 192.168.0.0/16 -Subnet $subnetConfig
 
-# Create a public IP address and specify a DNS name
+# Create a public IP address and specify a DNS name. "$myTag-pip-$(Get-Random)"
 $pip = New-AzPublicIpAddress -ResourceGroupName $resourceGroup -Location $location `
-  -Name "$myTag-pip-$(Get-Random)" -AllocationMethod Static -IdleTimeoutInMinutes 4
+  -Name "$myTag-pip" -AllocationMethod Static -IdleTimeoutInMinutes 4
 
 # Create an inbound network security group rule for port 3389
 $nsgRuleRDP = New-AzNetworkSecurityRuleConfig -Name "$myTag-nsg-RDP"  -Protocol Tcp `
