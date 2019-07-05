@@ -5,3 +5,22 @@ https://docs.microsoft.com/en-us/azure/virtual-machines/windows/powershell-sampl
 https://docs.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-automate-vm-deployment
 
 set-executionpolicy remotesigned
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Get-AzNetworkSecurityGroup -Name "configVMIIS-nsg" -ResourceGroupName "configVMIIS-rg" `
+  | Add-AzNetworkSecurityRuleConfig -Name "configVMIIS-nsg-http" -Description "Allow HTTP"  -Access Allow -Protocol Tcp -Direction Inbound -Priority 1001 -SourceAddressPrefix  Internet -SourcePortRange * -DestinationAddressPrefix * -DestinationPortRange 80 `
+  | Set-AzNetworkSecurityGroup
