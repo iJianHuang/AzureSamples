@@ -6,3 +6,8 @@ Azure walk-through samples / exercises
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FiJianHuang%2FAzureSamples%2Fmaster%2FARM-Templates%2F101-SimpleVM%2Ftemplate-101-vm.json%0D%0A" target="_blank">
+    <img src="http://armviz.io/visualizebutton.png"/>
+</a>
+
+
