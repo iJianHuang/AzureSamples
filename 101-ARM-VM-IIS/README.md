@@ -8,11 +8,11 @@ You can deploy this VM by two methods.
 
 After deployment, you can verify by browsing to http://machine-ipaddress
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FiJianHuang%2FAzureSamples%2Fmaster%2FARM-Templates%2F101-SimpleVM%2Ftemplate-101-vm.json%0D%0A" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FiJianHuang%2FAzureSamples%2Fmaster%2F101-ARM-VM-IIS%2Ftemplate-101-vm.json%0D%0A" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FiJianHuang%2FAzureSamples%2Fmaster%2FARM-Templates%2F101-SimpleVM%2Ftemplate-101-vm.json%0D%0A" target="_blank">
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FiJianHuang%2FAzureSamples%2Fmaster%2F101-ARM-VM-IIS%2Ftemplate-101-vm.json%0D%0A" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
