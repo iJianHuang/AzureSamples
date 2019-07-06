@@ -80,11 +80,11 @@ $resourceGroupName = "$environmentName-rg"
 
 # sign in
 Write-Host "Logging in...";
-#Connect-AzAccount;
+Connect-AzAccount;
 
 # select subscription
 Write-Host "Selecting subscription '$subscriptionId'";
-#Select-AzSubscription -SubscriptionID $subscriptionId;
+Select-AzSubscription -SubscriptionID $subscriptionId;
 
 # Register RPs
 $resourceProviders = @("microsoft.network","microsoft.compute","microsoft.devtestlab");
