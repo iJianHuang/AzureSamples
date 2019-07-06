@@ -1,7 +1,8 @@
 # AzureSamples
 Azure walk-through samples / exercises
 
-Highlights:
+### Highlights
+
 101 - A simple vm with IIS. This VM is configured with security in mind. Only three ports (http 80, https 443, RDP 3389). 
 
 The environment name is very important because it is used for creating the whole devtest lab environment, and later for cleaning up resources. In addition, it is used to prefix all the resources including the VM. There are different naming conventions for resources so please use lower case and number only for this environment name. Some examples are dev, dev123, qa, etc.
