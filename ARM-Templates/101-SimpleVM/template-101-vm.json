@@ -57,6 +57,7 @@
         "networkSecurityGroupName": "[concat(parameters('environmentName'), '-nsg')]",
         "networkSecurityGroupRules": "[concat(parameters('environmentName'), '-nsgr')]",
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+        "iisName": "[concat(variables('vmName'), '/IIS')]"
     },
     "resources": [
         {
@@ -228,6 +229,25 @@
                         "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob]"
                     }
                 }
+            }
+        },        
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2018-10-01",
+            "name":  "[variables('iisName')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "commandToExecute": "powershell Add-WindowsFeature Web-Server; powershell Add-Content -Path \"C:\\inetpub\\wwwroot\\Default.htm\" -Value $($env:computername) "
+                },
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.8",
+                "protectedSettings": {}
             }
         }
     ],

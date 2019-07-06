@@ -52,16 +52,7 @@ Add-AzVMNetworkInterface -Id $nic.Id
 # Create a virtual machine
 New-AzVM -ResourceGroupName $resourceGroup -Location $location -VM $vmConfig
 
-# RDP
-# mstsc.exe /v <PUBLIC_IP_ADDRESS>
-
 # Install IIS
-#$PublicSettings = '{"ModulesURL":"https://github.com/Azure/azure-quickstart-templates/raw/master/dsc-extension-iis-server-windows-#vm/ContosoWebsite.ps1.zip", "configurationFunction": "ContosoWebsite.ps1\\ContosoWebsite", "Properties": {"MachineName": "' + #$vmName + '"} }'
-
-#Set-AzVMExtension -ExtensionName "DSC" -ResourceGroupName $resourceGroup -VMName $vmName `
-#  -Publisher "Microsoft.Powershell" -ExtensionType "DSC" -TypeHandlerVersion 2.19 `
-#  -SettingString $PublicSettings -Location $location
-
 Set-AzVMExtension -ResourceGroupName $resourceGroup `
     -ExtensionName "IIS" `
     -VMName $vmName `
@@ -71,9 +62,13 @@ Set-AzVMExtension -ResourceGroupName $resourceGroup `
     -TypeHandlerVersion 1.8 `
     -SettingString '{"commandToExecute":"powershell Add-WindowsFeature Web-Server; powershell Add-Content -Path \"C:\\inetpub\\wwwroot\\Default.htm\" -Value $($env:computername)"}'
 
-Get-AzPublicIPAddress `
-    -ResourceGroupName $resourceGroup `
-    -Name "$myTag-pip" | select IpAddress
+Write-Host "IP: "
+Get-AzPublicIPAddress -ResourceGroupName $resourceGroup | select IpAddress
+
+    
+# RDP
+# mstsc.exe /v <PUBLIC_IP_ADDRESS>
+
 
 # clean up
 # $job = Remove-AzResourceGroup -Name $resourceGroup -Force -AsJob

@@ -131,3 +131,13 @@ if(Test-Path $parametersFilePath) {
         -environmentName $environmentName `
         -TemplateFile $templateFilePath;
 }
+
+Write-Host "IP: "
+Get-AzPublicIPAddress -ResourceGroupName $resourceGroup | select IpAddress
+
+# RDP
+# mstsc.exe /v <PUBLIC_IP_ADDRESS>
+
+# clean up
+# $job = Remove-AzResourceGroup -Name $resourceGroup -Force -AsJob
+# $job
